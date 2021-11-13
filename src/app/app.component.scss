@@ -1,0 +1,16 @@
+.container {
+    display: flex;
+}
+.row {
+    width: 100%;
+}
+.left-col {
+    width: 65%;
+    background-color: white;
+}
+
+.right-col {
+    margin-left: 15px;
+    width: 45%;
+    background-color: white;
+}
