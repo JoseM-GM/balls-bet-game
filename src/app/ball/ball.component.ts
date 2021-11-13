@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-ball',
@@ -39,7 +39,7 @@ export class BallComponent implements OnInit {
   /**
    * Emits the selected ball number.
    */
-  @Output() ballSelected = new EventEmitter<Number>();
+  @Output() ballSelected = new EventEmitter<number>();
   
   @ViewChild('canvas', { static: true }) canvas: ElementRef<HTMLCanvasElement> | undefined;
 
@@ -50,10 +50,16 @@ export class BallComponent implements OnInit {
   private canvasWidth = 160;
   private canvasHeight = 160;
 
+  ngOnChanges(changes: SimpleChanges): void {
+    if (!changes.number.firstChange) {
+      this.redraw();
+    }
+  }
+
   constructor() { }
 
   ngOnInit(): void {
-    if(this.canvas) {
+    if (this.canvas) {
       const element = this.canvas.nativeElement.getContext('2d');
       if(element !== null) {
         this.ctx = element;
@@ -82,7 +88,7 @@ export class BallComponent implements OnInit {
    */
   private setColor() {
     if (this.number) {
-      switch(this.number%6) {
+      switch(this.number % 6) {
         case 1: {
           this.color = '#D55353';
           this.bgColor = '#B1605D';
@@ -141,6 +147,16 @@ export class BallComponent implements OnInit {
       this.ctx.textBaseline = 'middle'; 
 	    this.ctx.fillText(`${this.number}`, this.radius, this.radius);
     }
+  }
+
+  /**
+   * Redraw the ball.
+   */
+  private redraw() {
+    this.ctx?.clearRect(0, 0, this.radius*2, this.radius*2);
+    this.setColor();
+    this.drawCircle();
+    this.drawNumber();
   }
 
   /**

@@ -1,0 +1,14 @@
+{
+    "BallSelector": {
+        "Numbers": "Numbers",
+        "ClearSelection": "Clear selection",
+        "Result": "Result",
+        "Won": "YOU WON",
+        "Loose": "YOU LOOSE"
+    },
+    "BetSlip": {
+        "Ok": "Ok",
+        "Total": "Total",
+        "PlaceBet": "Place bet"
+    }
+}

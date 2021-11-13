@@ -1,1 +1,33 @@
-<p>bet-slip works!</p>
+<form (ngSubmit)="onSubmit()" [formGroup]="formulario">
+    <div id="upper-container">
+        <div id="balls-row">
+            <ng-container *ngFor="let ball of allBetBalls" >
+                <app-ball
+                    [number]="ball"
+                    [radius]="15"
+                    [fontWeight]="'bold'"
+                    [fontSize]="12"
+                ></app-ball>
+            </ng-container>
+        </div>
+        <div id="bet-row">
+            <div id="bet-wrapper">
+                {{betBallsQuantity}}x
+                <input type="number" formControlName="betQuantity" />
+            </div>
+            <button id="button-ok" class="pointer" type='button' (click)="applyBet()">
+                {{'BetSlip.Ok' | translate}}
+            </button>
+        </div>
+    </div>
+    <div id="lower-container">
+        <div id="bet-total">
+            {{'BetSlip.Total' | translate}}: {{total}}€
+        </div>
+        <div>
+            <button id="button-place-bet" class="pointer" type="submit">
+                {{'BetSlip.PlaceBet' | translate}}
+            </button>
+        </div>
+    </div>
+</form>

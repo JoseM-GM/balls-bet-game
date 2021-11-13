@@ -1,4 +1,36 @@
-<app-ball
-    [number]="7"
-    (ballSelected)="selection($event)"
-></app-ball>
+
+
+<ng-container *ngIf="!winnerBall">
+    <div>
+        {{'BallSelector.Numbers' | translate}}
+    </div>
+    <div>
+        <ng-container *ngFor="let ball of ballsList">
+            <app-ball
+                [number]="ball"
+                (ballSelected)="selection($event)"
+            ></app-ball>
+        </ng-container>
+    </div>
+    <p (click)="resetList()" class="pointer">
+        {{'BallSelector.ClearSelection' | translate}}
+    </p>
+</ng-container>
+
+<ng-container *ngIf="winnerBall">
+    <div>
+        {{'BallSelector.Result' | translate}}
+    </div>
+    <div>
+        <app-ball
+            [number]="winnerBall"
+        ></app-ball>
+    </div>
+    <p *ngIf="ballResult">
+        {{'BallSelector.Won' | translate}}
+    </p>
+    <p *ngIf="!ballResult">
+        {{'BallSelector.Loose' | translate}}
+    </p>
+</ng-container>
+

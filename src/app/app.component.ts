@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-root',
@@ -8,7 +9,13 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'golden-race';
 
-  constructor() { }
+  private idiomas: Array<string>;
+
+  constructor(public translate: TranslateService) {
+    this.idiomas = ['es', 'en'];
+    translate.addLangs(this.idiomas);
+    translate.setDefaultLang('en');
+  }
 
   ngOnInit(): void {
   }
