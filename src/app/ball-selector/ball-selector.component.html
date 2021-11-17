@@ -1,36 +1,38 @@
 
-
-<ng-container *ngIf="!winnerBall">
-    <div>
-        {{'BallSelector.Numbers' | translate}}
+<div id="balls-selector-container">
+    <div *ngIf="!winnerBall" id="selection-phase-holder">
+        <div class="header">
+            {{'BallSelector.Numbers' | translate}}
+        </div>
+        <div>
+            <ng-container *ngFor="let ball of ballsList">
+                <app-ball
+                    [number]="ball"
+                    (ballSelected)="selection($event)"
+                ></app-ball>
+            </ng-container>
+        </div>
+        <div id="clear-div">
+            <p (click)="resetList()" class="pointer">
+                {{'BallSelector.ClearSelection' | translate}}
+            </p>
+        </div>
     </div>
-    <div>
-        <ng-container *ngFor="let ball of ballsList">
+    
+    <div *ngIf="winnerBall" id="result-phase-holder">
+        <div class="header">
+            {{'BallSelector.Result' | translate}}
+        </div>
+        <div>
             <app-ball
-                [number]="ball"
-                (ballSelected)="selection($event)"
+                [number]="winnerBall"
             ></app-ball>
-        </ng-container>
+        </div>
+        <p *ngIf="ballResult" id="text-won">
+            {{'BallSelector.Won' | translate}}
+        </p>
+        <p *ngIf="!ballResult" id="text-loose">
+            {{'BallSelector.Loose' | translate}}
+        </p>
     </div>
-    <p (click)="resetList()" class="pointer">
-        {{'BallSelector.ClearSelection' | translate}}
-    </p>
-</ng-container>
-
-<ng-container *ngIf="winnerBall">
-    <div>
-        {{'BallSelector.Result' | translate}}
-    </div>
-    <div>
-        <app-ball
-            [number]="winnerBall"
-        ></app-ball>
-    </div>
-    <p *ngIf="ballResult">
-        {{'BallSelector.Won' | translate}}
-    </p>
-    <p *ngIf="!ballResult">
-        {{'BallSelector.Loose' | translate}}
-    </p>
-</ng-container>
-
+</div>

@@ -1,0 +1,40 @@
+@import "../../assets/variables";
+
+#balls-selector-container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 20px;
+
+    .header {
+        margin-bottom: 15px;
+        font-weight: bold;
+    }
+
+    app-ball {
+        margin: 0 5px;
+    }
+
+    #clear-div {
+        color: $clearSelectionColor;
+        text-align: center;
+        margin-top: 30px;
+    }
+
+    #result-phase-holder {
+        text-align: center;
+
+        #text-won {
+            color: $winColor;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        #text-loose {
+            color: $looseColor;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+    }
+}

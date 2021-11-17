@@ -1,16 +1,18 @@
+@import "../assets/variables";
+
 .container {
     display: flex;
+    height: 500px;
 }
 .row {
     width: 100%;
 }
 .left-col {
-    width: 65%;
-    background-color: white;
+    width: 70%;
+    background-color: $white;
 }
 
 .right-col {
     margin-left: 15px;
-    width: 45%;
-    background-color: white;
+    width: 30%;
 }

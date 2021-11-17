@@ -1,7 +1,8 @@
-/* You can add global styles to this file, and also import other style files */
+@import "./assets/variables";
 
 body {
-    background-color: lightgray;
+    background-color: $white2;
+    font-family: arial;
 }
 .pointer {
     cursor: pointer;

@@ -32,9 +32,9 @@ export class BallComponent implements OnInit {
 
   /**
    * Font family, separated by coma if multiple.
-   * @default 'verdana, Times new roman'
+   * @default 'arial, Times new roman'
    */
-  @Input() fontFamily = 'verdana, Times new roman';
+  @Input() fontFamily = 'arial, Times new roman';
 
   /**
    * Emits the selected ball number.
@@ -91,7 +91,7 @@ export class BallComponent implements OnInit {
       switch(this.number % 6) {
         case 1: {
           this.color = '#D55353';
-          this.bgColor = '#B1605D';
+          this.bgColor = '#D45352';
           break;
         }
         case 2: {
