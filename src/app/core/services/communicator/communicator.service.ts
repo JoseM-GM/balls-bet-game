@@ -9,7 +9,7 @@ export class CommunicatorService {
   constructor() { }
 
   private announcedRefreshList = new Subject<Array<number>>();
-  private announcedPlacedBet = new Subject<boolean>();
+  private announcedPlacedBet = new Subject<number>();
 
   announcedRefreshList$ = this.announcedRefreshList.asObservable();
   announcedPlacedBet$ = this.announcedPlacedBet.asObservable();
@@ -26,7 +26,7 @@ export class CommunicatorService {
    * Report the placed bet.
    * @param placed Placed bet flag.
    */
-  announcePlacedBet(placed: boolean) {
-    this.announcedPlacedBet.next(placed);
+  announcePlacedBet(totalBet: number) {
+    this.announcedPlacedBet.next(totalBet);
   }
 }

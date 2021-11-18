@@ -5,7 +5,7 @@
             {{'BallSelector.Numbers' | translate}}
         </div>
         <div>
-            <ng-container *ngFor="let ball of ballsList">
+            <ng-container *ngFor="let ball of lotteryDrum">
                 <app-ball
                     [number]="ball"
                     (ballSelected)="selection($event)"
@@ -29,7 +29,7 @@
             ></app-ball>
         </div>
         <p *ngIf="ballResult" id="text-won">
-            {{'BallSelector.Won' | translate}}
+            {{'BallSelector.Won' | translate}} {{moneyWon}} €
         </p>
         <p *ngIf="!ballResult" id="text-loose">
             {{'BallSelector.Loose' | translate}}

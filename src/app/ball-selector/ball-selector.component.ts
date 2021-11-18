@@ -15,26 +15,27 @@ export class BallSelectorComponent implements OnInit {
 
   ballsQuantity = environment.ballsQuantity;
   
-  ballsList: Array<number> = [];
+  lotteryDrum: Array<number> = [];
   ballsSelected: Array<number> = [];
 
   winnerBall: number | undefined;
   ballResult: boolean | undefined;
+
+  moneyWon = 0;
   
   constructor(
     private communicatorService: CommunicatorService,
     private utilsService: UtilsService
   ) {
     for (let index = 1; index <= this.ballsQuantity; index++) {
-      this.ballsList[index-1] = index;
+      this.lotteryDrum[index-1] = index;
     }
 
-    this.placedBetSubscription = this.communicatorService.announcedPlacedBet$.subscribe(flag => {
+    this.placedBetSubscription = this.communicatorService.announcedPlacedBet$.subscribe(totalBet => {
       this.winnerBall = Math.floor(Math.random() * 10) + 1;
-      console.log('Bola ganadora', this.winnerBall);
       const foundBall = this.ballsSelected.findIndex( ball => ball === this.winnerBall);
       this.ballResult = foundBall === -1 ? false : true;
-      console.log('Jugador gana?', this.ballResult ? 'Si' : 'No');
+      this.moneyWon = totalBet * environment.winningBetMultiply;
     })
   }
 

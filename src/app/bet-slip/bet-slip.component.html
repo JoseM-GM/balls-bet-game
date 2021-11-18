@@ -1,4 +1,4 @@
-<form (ngSubmit)="onSubmit()" [formGroup]="formulario">
+<form (ngSubmit)="onSubmit()" [formGroup]="formulary">
     <div id="upper-container">
         <div id="balls-row">
             <ng-container *ngFor="let ball of allBetBalls" >
@@ -18,6 +18,12 @@
             <button id="button-ok" class="pointer" type='button' (click)="applyBet()">
                 {{'BetSlip.Ok' | translate}}
             </button>
+            <div class="warning" *ngIf="showWarningSelectBalls">
+                {{'BetSlip.WarningSelectBall' | translate}}
+            </div>
+            <div class="warning" *ngIf="showWarningApplyBet">
+                {{'BetSlip.WarningBet' | translate}}
+            </div>
         </div>
     </div>
     <div id="lower-container">
@@ -28,6 +34,9 @@
             <button id="button-place-bet" class="pointer" type="submit">
                 {{'BetSlip.PlaceBet' | translate}}
             </button>
+            <div class="warning" *ngIf="showWarningPlaceBet">
+                {{'BetSlip.WarningApplyBet' | translate}}
+            </div>
         </div>
     </div>
 </form>
