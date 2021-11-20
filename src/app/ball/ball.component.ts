@@ -44,11 +44,11 @@ export class BallComponent implements OnInit {
   @ViewChild('canvas', { static: true }) canvas: ElementRef<HTMLCanvasElement> | undefined;
 
   private ctx: CanvasRenderingContext2D | undefined;
-  private color = '#E3E3ED' ;
-  private bgColor = '#E3E3ED' ;
+  color = '#E3E3ED' ;
+  bgColor = '#E3E3ED' ;
 
-  private canvasWidth = 160;
-  private canvasHeight = 160;
+  canvasWidth = 160;
+  canvasHeight = 160;
 
   ngOnChanges(changes: SimpleChanges): void {
     if (!changes.number.firstChange) {
@@ -74,7 +74,7 @@ export class BallComponent implements OnInit {
   /**
    * Generate and set the size of the canvas.
    */
-  private resizeCanvas() {
+  resizeCanvas() {
     if (this.ctx) {
       this.canvasWidth = this.radius * 2;
       this.canvasHeight = this.radius * 2;
@@ -86,7 +86,7 @@ export class BallComponent implements OnInit {
   /**
    * Detect the number setted in the ball and preset the color line and background color.
    */
-  private setColor() {
+  setColor() {
     if (this.number) {
       switch(this.number % 6) {
         case 1: {
@@ -117,7 +117,6 @@ export class BallComponent implements OnInit {
         case 0: {
           this.color = '#ECF6EE';
           this.bgColor = '#DDE7DF';
-  
         }
       }
     }
@@ -152,7 +151,7 @@ export class BallComponent implements OnInit {
   /**
    * Redraw the ball.
    */
-  private redraw() {
+  redraw() {
     this.ctx?.clearRect(0, 0, this.radius*2, this.radius*2);
     this.setColor();
     this.drawCircle();
