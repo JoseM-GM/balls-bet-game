@@ -19,12 +19,12 @@ export class BetSlipComponent implements OnInit, OnDestroy {
   betBallsQuantity: number = 0;
 
   showWarningSelectBalls = false;
-  showWarningApplyBet = false;
+  showWarningMinBet = false;
   showWarningPlaceBet = false;
 
   total: number = 0;
 
-  constructor(private communicatorService: CommunicatorService) {
+  constructor(public communicatorService: CommunicatorService) {
     this.refreshListSubscription = this.communicatorService.announcedRefreshList$.subscribe( updatedList => {
       this.allBetBalls = new Array(8);
       this.betBallsQuantity = updatedList.length;
@@ -49,9 +49,9 @@ export class BetSlipComponent implements OnInit, OnDestroy {
     } else {
       this.showWarningSelectBalls = false;
       if (betQuantity < environment.minimumBet) {
-        this.showWarningApplyBet = true;
+        this.showWarningMinBet = true;
       } else {
-        this.showWarningApplyBet = false;
+        this.showWarningMinBet = false;
         this.total = betQuantity * this.betBallsQuantity;
       }
     }

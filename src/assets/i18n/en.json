@@ -10,7 +10,7 @@
         "Ok": "Ok",
         "Total": "Total",
         "PlaceBet": "Place bet",
-        "WarningBet": "Minimum bet is 5 €",
+        "WarningMinBet": "Minimum bet is 5 €",
         "WarningSelectBall": "Select any ball first",
         "WarningApplyBet": "Apply the bet first"
     }

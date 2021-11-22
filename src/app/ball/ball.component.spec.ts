@@ -38,7 +38,6 @@ describe('BallComponent', () => {
   it('should have twice width and height if specified radius is 60', () => {
     component.radius = 60;
     component.ngOnInit();
-    // fixture.detectChanges();
     expect(component.canvasWidth).toEqual(120);
     expect(component.canvasHeight).toEqual(120);
   })

@@ -12,7 +12,7 @@
         </div>
         <div id="bet-row">
             <div id="bet-wrapper">
-                {{betBallsQuantity}}x
+                <span>{{betBallsQuantity}}x</span>
                 <input type="number" formControlName="betQuantity" />
             </div>
             <button id="button-ok" class="pointer" type='button' (click)="applyBet()">
@@ -21,8 +21,8 @@
             <div class="warning" *ngIf="showWarningSelectBalls">
                 {{'BetSlip.WarningSelectBall' | translate}}
             </div>
-            <div class="warning" *ngIf="showWarningApplyBet">
-                {{'BetSlip.WarningBet' | translate}}
+            <div class="warning" *ngIf="showWarningMinBet">
+                {{'BetSlip.WarningMinBet' | translate}}
             </div>
         </div>
     </div>

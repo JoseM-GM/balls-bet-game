@@ -10,7 +10,7 @@
         "Ok": "Ok",
         "Total": "Total",
         "PlaceBet": "Hacer apuesta",
-        "WarningBet": "La apuesta mínima es de 5 €",
+        "WarningMinBet": "La apuesta mínima es de 5 €",
         "WarningSelectBall": "Seleccione alguna bola primero",
         "WarningApplyBet": "Introduzca la apuesta primero"
     }

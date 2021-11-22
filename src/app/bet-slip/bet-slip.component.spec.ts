@@ -14,6 +14,7 @@ describe('BetSlipComponent', () => {
   let fixture: ComponentFixture<BetSlipComponent>;
   let translate: TranslateService;
   let injector:  Injector;
+  let compiled: any;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -36,9 +37,10 @@ describe('BetSlipComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(BetSlipComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
     injector = getTestBed();
     translate = injector.get(TranslateService);
+    compiled = fixture.nativeElement;
+    fixture.detectChanges();
   });
 
   it('should create', () => {
@@ -46,29 +48,68 @@ describe('BetSlipComponent', () => {
   });
 
   it('should exist button "Ok"', () => {
+    expect(compiled.querySelector('#button-ok').textContent.trim()).toEqual('BetSlip.Ok');
+    translate.setTranslation('en', { 'BetSlip.Ok': 'Ok' });
     translate.use('en');
     fixture.detectChanges();
-    const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('#button-ok').textContent).toContain('Ok');
+    expect(compiled.querySelector('#button-ok').textContent.trim()).toEqual('Ok');
   })
 
   it('should exist button "Place bet"', () => {
+    expect(compiled.querySelector('#button-place-bet').textContent.trim()).toEqual('BetSlip.PlaceBet');
+    translate.setTranslation('en', { 'BetSlip.PlaceBet': 'Place bet' });
     translate.use('en');
     fixture.detectChanges();
-    const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('#button-place-bet').textContent).toContain('Place');
+    expect(compiled.querySelector('#button-place-bet').textContent.trim()).toEqual('Place bet');
   })
 
   it('should exist "total" text', () => {
+    expect(compiled.querySelector('#bet-total').textContent).toContain('BetSlip.Total');
+    translate.setTranslation('en', { 'BetSlip.Total': 'Total' });
     translate.use('en');
     fixture.detectChanges();
-    const compiled = fixture.nativeElement;
     expect(compiled.querySelector('#bet-total').textContent).toContain('Total');
   })
 
   it('should paint 8 balls', () => {
     const ballComponentCount = fixture.debugElement.queryAll(By.css('app-ball'));
     expect(ballComponentCount.length).toBe(8);
+  })
+
+  it('should paint quantity bet correctly', () => {
+    component.communicatorService.announceRefreshList([5, 8, 10]);
+    fixture.detectChanges();
+    const input = fixture.debugElement.query(By.css('#bet-wrapper span')).nativeElement;
+    expect(input.innerHTML).toBe('3x');
+   })
+
+  it('should paint total bet correctly after click "Ok" button', () => {
+    component.communicatorService.announceRefreshList([5, 8, 10]);
+    const input: HTMLInputElement = fixture.debugElement.query(By.css('#bet-wrapper input')).nativeElement;
+    input.value = '100';
+    compiled.querySelector('#button-ok').dispatchEvent(new Event('click'));
+    fixture.detectChanges();
+    expect(compiled.querySelector('#bet-total').textContent).toContain('15');
+  })
+
+  it('should warn if no ball selected and click "Ok"', () => {
+    compiled.querySelector('#button-ok').dispatchEvent(new Event('click'));
+    expect(component.showWarningSelectBalls).toBe(true);
+  })
+
+  it('should warn bet value if it\'s below of "5"', () => {
+    component.communicatorService.announceRefreshList([5, 8, 10]);
+    component.formulary.get('betQuantity')?.setValue('2');
+    compiled.querySelector('#button-ok').dispatchEvent(new Event('click'));
+    fixture.detectChanges();
+    expect(component.showWarningMinBet).toBe(true);
+  })
+
+  it('should warn if bet not applied', () => {
+    const form = fixture.debugElement.query(By.css('form'));
+    form.triggerEventHandler('submit', null);
+    fixture.detectChanges();
+    expect(component.showWarningPlaceBet).toBe(true);
   })
 
 });

@@ -4,13 +4,11 @@
         <div class="header">
             {{'BallSelector.Numbers' | translate}}
         </div>
-        <div>
-            <ng-container *ngFor="let ball of lotteryDrum">
-                <app-ball
-                    [number]="ball"
-                    (ballSelected)="selection($event)"
-                ></app-ball>
-            </ng-container>
+        <div id="balls-row-container">
+            <app-ball *ngFor="let ball of lotteryDrum"
+                [number]="ball"
+                (ballSelected)="selection($event)"
+            ></app-ball>
         </div>
         <div id="clear-div">
             <p (click)="resetList()" class="pointer">
