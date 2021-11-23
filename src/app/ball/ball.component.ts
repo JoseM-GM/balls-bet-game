@@ -61,7 +61,7 @@ export class BallComponent implements OnInit {
   ngOnInit(): void {
     if (this.canvas) {
       const element = this.canvas.nativeElement.getContext('2d');
-      if(element !== null) {
+      if (element !== null) {
         this.ctx = element;
         this.resizeCanvas();
         this.setColor();

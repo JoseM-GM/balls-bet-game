@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -7,14 +8,13 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'golden-race';
 
-  private idiomas: Array<string>;
+  private languages: Array<string>;
 
   constructor(public translate: TranslateService) {
-    this.idiomas = ['es', 'en'];
-    translate.addLangs(this.idiomas);
-    translate.setDefaultLang('en');
+    this.languages = ['es', 'en'];
+    translate.addLangs(this.languages);
+    translate.setDefaultLang(environment.defaultLanguage);
   }
 
   ngOnInit(): void {
