@@ -13,4 +13,8 @@ describe('UtilsService', () => {
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
+
+  it('should sort array of numbers', () => {
+    expect(service.sortNumbers([10, 2, 5])).toEqual([2, 5,10]);
+  })
 });

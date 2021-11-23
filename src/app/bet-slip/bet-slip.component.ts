@@ -15,16 +15,23 @@ export class BetSlipComponent implements OnInit, OnDestroy {
 
   formulary: FormGroup;
 
+  /** Array container of balls selected by the player. */
   allBetBalls = new Array(8);
+  /** Quantity of balls selected to bet. */
   betBallsQuantity: number = 0;
 
+  /** Flag to show warning message to select any ball */
   showWarningSelectBalls = false;
+  /** Flag to show warning message to place a bet up to 5. */
   showWarningMinBet = false;
+  /** Flag to show warning message to apply the bet previous to Place the bet. */
   showWarningPlaceBet = false;
 
+  /** Total money of the bet. */
   total: number = 0;
 
   constructor(public communicatorService: CommunicatorService) {
+    // Subscribe to update the balls selections
     this.refreshListSubscription = this.communicatorService.announcedRefreshList$.subscribe( updatedList => {
       this.allBetBalls = new Array(8);
       this.betBallsQuantity = updatedList.length;
@@ -40,6 +47,11 @@ export class BetSlipComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
   }
 
+  /**
+   * Event triggered when player apply/ok the bet.
+   * Check if there are any selections or not.
+   * Calculate the total of bet if all its correct.
+   */
   applyBet() {
     const betQuantity = this.formulary.get('betQuantity')?.value;
 
@@ -57,6 +69,10 @@ export class BetSlipComponent implements OnInit, OnDestroy {
     }
   }
 
+  /**
+   * Event triggered when player Place bet.
+   * Announce the total money bet in this game.
+   */
   onSubmit() {
     if (this.formulary.valid && this.total !== 0) {
       this.communicatorService.announcePlacedBet(this.total);

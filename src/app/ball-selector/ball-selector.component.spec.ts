@@ -1,5 +1,5 @@
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { Injector } from '@angular/core';
+import { DebugElement, Injector } from '@angular/core';
 import { ComponentFixture, getTestBed, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
@@ -62,9 +62,55 @@ describe('BallSelectorComponent', () => {
   })
 
   it('should exist 10 balls', () => {
-    translate.use('en');
-    fixture.detectChanges();
+    const algo = fixture.debugElement.queryAll(By.css('app-ball'));
     expect(fixture.debugElement.queryAll(By.css('app-ball')).length).toBe(10);
   })
+
+  it('should have registered 3 balls after selection', () => {
+    component.selection(1);
+    component.selection(2);
+    component.selection(3);
+    expect(component.ballsSelected.length).toBe(3);
+  })
+
+  it('should reset selection if clicked "Clear selection"', () => {
+    component.selection(1);
+    component.selection(2);
+    component.selection(3);
+    expect(component.ballsSelected.length).toBe(3);
+    compiled.querySelector('#clear-div p').dispatchEvent(new Event('click'));
+    expect(component.ballsSelected.length).toBe(0);
+  })
+
+  it('should show winner ball, text and money won',() => {
+    component.winnerBall = 5;
+    component.ballResult = true;
+    fixture.detectChanges();
+    expect(compiled.querySelector('#winner-ball')).toBeDefined();
+
+    expect(compiled.querySelector('#text-won').textContent).toContain('BallSelector.Won');
+    translate.setTranslation('en', { 'BallSelector.Won': 'YOU WON' });
+    translate.use('en');
+    fixture.detectChanges();
+    expect(compiled.querySelector('#text-won').textContent).toContain('YOU WON');
+
+    component.moneyWon = 300;
+    fixture.detectChanges();
+    expect(compiled.querySelector('#text-won').textContent).toContain('300');
+  })
+
+  it('should show loose ball and text',() => {
+    component.winnerBall = 5;
+    component.ballResult = false;
+    fixture.detectChanges();
+    expect(compiled.querySelector('#winner-ball')).toBeDefined();
+
+    expect(compiled.querySelector('#text-loose').textContent).toContain('BallSelector.Loose');
+    translate.setTranslation('en', { 'BallSelector.Loose': 'YOU LOOSE' });
+    translate.use('en');
+    fixture.detectChanges();
+    expect(compiled.querySelector('#text-loose').textContent).toContain('YOU LOOSE');
+  })
+
 
 });
